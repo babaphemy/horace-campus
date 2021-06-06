@@ -51,7 +51,6 @@ const Signup = () => {
               fullWidth
               id="firstName"
               label="First Name"
-              InputProps={{ className: classes.multilineColor }}
               autoFocus
             />
           </Grid>
@@ -63,7 +62,6 @@ const Signup = () => {
               id="lastName"
               label="Last Name"
               name="lastName"
-              InputProps={{ className: classes.multilineColor }}
               autoComplete="lname"
             />
           </Grid>
@@ -75,7 +73,6 @@ const Signup = () => {
               id="email"
               label="Email Address"
               name="email"
-              InputProps={{ className: classes.multilineColor }}
               autoComplete="email"
             />
           </Grid>
@@ -88,7 +85,6 @@ const Signup = () => {
               label="Password"
               type="password"
               id="password"
-              InputProps={{ className: classes.multilineColor }}
               autoComplete="current-password"
             />
           </Grid>

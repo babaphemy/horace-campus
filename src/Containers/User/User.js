@@ -18,8 +18,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     border: 1,
-    color: "white",
-    backgroundColor: "#F69B9B",
     borderRadius: 10,
     padding: theme.spacing(3),
   },

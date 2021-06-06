@@ -21,6 +21,9 @@ import { UserProvider } from "./Context/UserProvider";
 import "./Assets/css/styles.css";
 const theme = createMuiTheme({
   palette: {
+    background: {
+      default: "#FA534F",
+    },
     primary: {
       main: "#FA534F",
     },
