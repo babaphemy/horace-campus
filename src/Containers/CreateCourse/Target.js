@@ -5,14 +5,11 @@ import {
   Checkbox,
   Container,
   Grid,
-  FormControlLabel,
-  Switch,
+  TextField,
 } from "@material-ui/core";
-import { AiFillPlayCircle, AiFillFileAdd } from "react-icons/ai";
 import { makeStyles } from "@material-ui/core/styles";
-
-import { Settings, ArrowBackIos, Add, ExpandMore } from "@material-ui/icons";
-import { IoIosCheckmarkCircle } from "react-icons/io";
+import { Settings, ArrowBackIos } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   createCourse: {
@@ -84,66 +81,27 @@ const useStyles = makeStyles((theme) => ({
   boxHeader: {
     padding: "2%",
     borderBottom: "1px solid #727272",
-    display: "flex",
-    alignItem: "center",
   },
   boxTitle: {
     fontWeight: 400,
-    flex: 1,
   },
   detailContainer: {
     padding: "2%",
   },
-  outlineBtnPrimary: {
-    color: "#1D71D3",
-    textTransform: "none",
+  infoText: {
+    margin: "2% 0",
   },
-  stepBox: {
-    border: "1px solid #727272",
-    backgroundColor: "#efefef",
-    borderRadius: 4,
-    padding: "1%",
-  },
-  stepHeader: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-  },
-  secTitle: {
-    fontSize: 16,
-    fontWeight: 500,
-  },
-  contentModal: {
-    border: "1px solid #727272",
-    backgroundColor: "#fff",
-    borderRadius: 4,
-  },
-  modalHeader: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    borderBottom: "1px solid #727272",
-    padding: "1%",
-  },
-  lefttSide: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    flex: 1,
-    gap: 4,
-  },
-  videoContainer: {
-    padding: "1%",
-    display: "flex",
-    alignItems: "center",
-    gap: "5px",
-    borderBottom: "1px solid #727272",
+  questionBox: {
+    marginBottom: "4%",
   },
 }));
 
-export default function CreateCourse2(props) {
+export default function Target(props) {
   const classes = useStyles();
+  const history = useHistory();
+  const _submit = () => {
+    history.push("create-course2");
+  };
 
   return (
     <div className={classes.createCourse}>
@@ -266,6 +224,7 @@ export default function CreateCourse2(props) {
                 variant="contained"
                 disableElevation
                 className={classes.submitBtn}
+                onClick={_submit}
               >
                 Submit For Review
               </Button>
@@ -276,110 +235,48 @@ export default function CreateCourse2(props) {
             <br />
             <div className={classes.contentContainer}>
               <div className={classes.boxHeader}>
-                <h1 className={classes.boxTitle}>Cirriculum</h1>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  className={classes.outlineBtnPrimary}
-                >
-                  Bulk Uploader
-                </Button>
+                <h1 className={classes.boxTitle}>Target your students</h1>
               </div>
               <div className={classes.detailContainer}>
-                <div className={classes.stepBox}>
-                  <div className={classes.stepHeader}>
-                    <h2 className={classes.secTitle}>Section 1: </h2>
-                    <AiFillFileAdd />
-                    <p>Intrdocution</p>
-                  </div>
-                  <br />
-                  <br />
-                  <div className={classes.contentModal}>
-                    <div className={classes.modalHeader}>
-                      <div className={classes.lefttSide}>
-                        <IoIosCheckmarkCircle />
-                        <p>Lecture 1:</p>
-                        <AiFillPlayCircle />
-                        <p>Intrdocution</p>
-                      </div>
-                      <ExpandMore />
-                    </div>
-                    <div className={classes.videoContainer}>
-                      <div>
-                        <video width="160" height="100" controls>
-                          <source
-                            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-                            type="video/mp4"
-                          />
-                        </video>
-                      </div>
-                      <div style={{ flex: 1 }}>
-                        <h4>arithmetic101.mp4</h4>
-                        <h4>02:40</h4>
-                        <h4>Edit Content</h4>
-                      </div>
-                      <div style={{ justifyContent: "flex-end" }}>
-                        <Button
-                          color="primary"
-                          variant="contained"
-                          // className={classes.outlineBtnPrimary}
-                          disableElevation
-                        >
-                          Preview
-                          <ExpandMore />
-                        </Button>
-                        <br />
-                        <FormControlLabel
-                          value="start"
-                          control={<Switch color="primary" />}
-                          label="Downloadable:"
-                          labelPlacement="start"
-                        />
-                      </div>
-                    </div>
-                    <div style={{ padding: "1%" }}>
-                      <Button
-                        color="primary"
-                        variant="outlined"
-                        className={classes.outlineBtnPrimary}
-                        startIcon={<Add />}
-                      >
-                        Description
-                      </Button>
-                      <br />
-                      <Button
-                        color="primary"
-                        variant="outlined"
-                        className={classes.outlineBtnPrimary}
-                        startIcon={<Add />}
-                      >
-                        Resources
-                      </Button>
-                    </div>
-                  </div>
+                <p className={classes.infoText}>
+                  The description you write here will help students decide if
+                  your course is the one for them:
+                </p>
+
+                <div className={classes.questionBox}>
+                  <p>What will students learn in your course?</p>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    margin="dense"
+                    placeholder="Example: low-light photography"
+                  />
+
+                  <Button color="primary"> + Add an Answer</Button>
                 </div>
 
-                <br />
-                <br />
-                <div className={classes.stepBox}>
-                  <div className={classes.stepHeader}>
-                    <h2 className={classes.secTitle}>Section 2: </h2>
-                    <AiFillFileAdd />
-                    <p>Getting Started</p>
-                  </div>
-                  <br />
-                  <br />
-                  <div className={classes.contentModal}>
-                    <div className={classes.modalHeader}>
-                      <div className={classes.lefttSide}>
-                        <IoIosCheckmarkCircle />
-                        <p>Lecture 2:</p>
-                        <AiFillPlayCircle />
-                        <p>Requirements</p>
-                      </div>
-                      <ExpandMore />
-                    </div>
-                  </div>
+                <div className={classes.questionBox}>
+                  <p>Are they any course requirements or prerequisites?</p>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    margin="dense"
+                    placeholder="Example: Be able to read sheet music"
+                  />
+
+                  <Button color="primary"> + Add an Answer</Button>
+                </div>
+
+                <div className={classes.questionBox}>
+                  <p>Who are your target students?</p>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    margin="dense"
+                    placeholder="Example: Beginner Python developers curious about data science"
+                  />
+
+                  <Button color="primary"> + Add an Answer</Button>
                 </div>
               </div>
             </div>

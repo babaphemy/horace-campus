@@ -3,6 +3,7 @@ import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { ExpandMore, Menu } from "@material-ui/icons";
 import "./styles.css";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
@@ -23,43 +24,43 @@ function Navbar() {
           <input type="checkbox" id="menu" />
           <ul>
             <li class="menu-hasdropdown">
-              <a href="#">
+              <Link to="#">
                 Help
                 <label title="toggle menu" for="about">
                   <ExpandMore />
                 </label>
                 <input type="checkbox" id="about" />
-              </a>
+              </Link>
               <ul class="menu-dropdown">
                 <li>
-                  <a href="">Help</a>
+                  <Link to="">Help</Link>
                 </li>
                 <li>
-                  <a href="">Help</a>
+                  <Link to="">Help</Link>
                 </li>
                 <li class="menu-hasdropdown menu-hasflyout">
-                  <a href="">Help</a>
+                  <Link to="">Help</Link>
                 </li>
               </ul>
             </li>
 
             <li class="menu-hasdropdown">
-              <a href="#">
+              <Link to="#">
                 Resources
                 <label title="toggle menu" for="about">
                   <ExpandMore />
                 </label>
                 <input type="checkbox" id="about" />
-              </a>
+              </Link>
               <ul class="menu-dropdown">
                 <li>
-                  <a href="">Resources</a>
+                  <Link to="create-course">Create Course</Link>
                 </li>
                 <li>
-                  <a href="">Resources</a>
+                  <Link to="classroom">Classroom</Link>
                 </li>
                 <li class="menu-hasdropdown menu-hasflyout">
-                  <a href="">Resources</a>
+                  <Link to="/">Resources</Link>
                 </li>
               </ul>
             </li>

@@ -30,12 +30,12 @@ const Forgot = () => {
           <Grid item xs={12}>
             <TextField
               autoComplete="fname"
-              name="firstName"
+              name="Email"
               variant="outlined"
               required
               fullWidth
-              id="firstName"
-              label="First Name"
+              id="email"
+              label="Email"
               autoFocus
             />
           </Grid>

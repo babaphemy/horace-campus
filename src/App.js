@@ -14,11 +14,12 @@ import {
   NotFound,
   Classroom,
   Course,
-  CreateCourse,
-  CreateCourse2,
+  CreateHoc,
+  Curriculum,
 } from "./Containers";
 import { UserProvider } from "./Context/UserProvider";
 import "./Assets/css/styles.css";
+
 const theme = createMuiTheme({
   palette: {
     background: {
@@ -49,8 +50,8 @@ const App = () => {
               <Route path="/forgot" component={Forgot} />
               <Route exact path="/classroom" component={Classroom} />
               <Route exact path="/course" component={Course} />
-              <Route exact path="/create-course" component={CreateCourse} />
-              <Route exact path="/create-course2" component={CreateCourse2} />
+              <Route exact path="/create-course" component={CreateHoc} />
+              <Route exact path="/create-course2" component={Curriculum} />
               <Route path="*" component={NotFound} />
             </Switch>
           </Router>
