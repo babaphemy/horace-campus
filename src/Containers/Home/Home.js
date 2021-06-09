@@ -320,9 +320,7 @@ function Home() {
 
                 <div className={classes.accordin}>
                   <div className={classes.accordinHeader}>
-                    <h2 className={classes.accordinTitle}>
-                      Upcoming Events
-                    </h2>
+                    <h2 className={classes.accordinTitle}>Upcoming Events</h2>
                     <ExpandMore />
                   </div>
                   <div className={classes.accordinBody} display={false}>
