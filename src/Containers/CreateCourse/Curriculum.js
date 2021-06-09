@@ -144,6 +144,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Curriculum(props) {
   const classes = useStyles();
+  const _section = (e) => {
+    // adds new section to curriculum
+  };
 
   return (
     <div className={classes.createCourse}>
@@ -363,6 +366,7 @@ export default function Curriculum(props) {
                     </div>
                   </div>
                 </div>
+                <Button>ADd Section</Button>
               </div>
               <Button
                 style={{ float: "right" }}

@@ -2,8 +2,27 @@ import React, { createContext, useReducer } from "react";
 const initialState = {
   user: {},
   course: {
+    course: "",
     target: {},
-    curriculum: [{}],
+    curriculum: [
+      {
+        section: [
+          {
+            title: "",
+            description: "",
+            lecture: [{ title: "", video: "", slide: "", brief: "" }],
+            quiz: {
+              title: "",
+              question: "",
+              answers: [],
+              correct: "",
+              relatedToSection: "",
+            },
+            note: { title: "", note: "" },
+          },
+        ],
+      },
+    ],
   },
 };
 const UserContext = createContext(initialState);
