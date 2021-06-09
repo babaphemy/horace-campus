@@ -8,14 +8,14 @@ import {
   Home,
   NotificationsOutlined,
 } from "@material-ui/icons";
-import Logo from "./../../Assets/logo-horace.png";
+import Logo from "./../../Assets/logo.png";
 
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   header: {
     borderBottom: "1px solid #f2f2f2",
-    backgroundColor: '#fff'
   },
   headerItems: {
     display: "flex",
@@ -53,7 +53,9 @@ function Header() {
         <div className={classes.headerItems}>
           <div className={classes.leftSide}>
             <div className={clsx(classes.navItem, classes.rightBorder)}>
-              <Home className={classes.icon} />
+              <Link to="/">
+                <Home className={classes.icon} />
+              </Link>
             </div>
 
             <div className={clsx(classes.navItem)}>

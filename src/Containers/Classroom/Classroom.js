@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 5,
     fontSize: 20,
     border: "1px solid #727272",
-    borderRadius: '50px'
+    borderRadius: "50px",
   },
   middleSecHeader: {
     display: "flex",
@@ -162,10 +162,10 @@ export default function Classroom(props) {
   const [notes, setNotes] = useState([]);
   const [note, setNote] = useState();
 
-  const [videLink, setVideoLink] = useState(
+  const [videLink] = useState(
     "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
   );
-  const [videoThumbnail, setVideoThumbnail] = useState(
+  const [videoThumbnail] = useState(
     "https://www.wowmakers.com/blog/wp-content/uploads/2019/02/Video-thumbnail.jpg"
   );
   const [anchorEl, setAnchorEl] = React.useState(null);
