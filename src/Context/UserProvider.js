@@ -1,6 +1,10 @@
 import React, { createContext, useReducer } from "react";
 const initialState = {
   user: {},
+  course: {
+    target: {},
+    curriculum: [{}],
+  },
 };
 const UserContext = createContext(initialState);
 
