@@ -8,7 +8,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Settings, ArrowBackIos } from "@material-ui/icons";
+
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -105,24 +105,6 @@ export default function Target(props) {
 
   return (
     <div className={classes.createCourse}>
-      <div className={classes.bar}>
-        <div className={classes.leftSec}>
-          <Button className={classes.whiteBtn}>
-            <ArrowBackIos /> Back to course
-          </Button>
-          <h3 className={classes.courseTitle}>
-            JavaScript for Modern Web Development
-          </h3>
-          <Button className={classes.whiteBtn}>Darft</Button>
-          <p className={classes.contentDetail}>
-            3min of video content uploaded
-          </p>
-        </div>
-        <div className={classes.rightSec}>
-          <Button className={classes.whiteBtn}>Save</Button>
-          <Settings style={{ color: "#fff" }} />
-        </div>
-      </div>
       <Container>
         <Grid container spacing={2}>
           <Grid item sm={12} lg={2}>
@@ -278,6 +260,14 @@ export default function Target(props) {
 
                   <Button color="primary"> + Add an Answer</Button>
                 </div>
+                <Button
+                  style={{ float: "right" }}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => props.nextTab(null, 1)}
+                >
+                  Next
+                </Button>
               </div>
             </div>
           </Grid>
