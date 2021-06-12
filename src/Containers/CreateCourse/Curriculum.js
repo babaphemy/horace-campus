@@ -1,18 +1,26 @@
 /** @format */
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Button,
-  Checkbox,
   Container,
   Grid,
   FormControlLabel,
   Switch,
+  TextField,
+  FormControl,
+  RadioGroup,
+  Radio,
 } from "@material-ui/core";
 import { AiFillPlayCircle, AiFillFileAdd } from "react-icons/ai";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Add, ExpandMore } from "@material-ui/icons";
 import { IoIosCheckmarkCircle } from "react-icons/io";
+import { UserContext } from "../../Context/UserProvider";
+import CurriSidebar from "./CurriSidebar";
+import Addlecture from "./Addlecture";
+import Addquiz from "./Addquiz";
+import Addnote from "./Addnote";
 
 const useStyles = makeStyles((theme) => ({
   createCourse: {
@@ -45,37 +53,6 @@ const useStyles = makeStyles((theme) => ({
   },
   contentDetail: {
     color: "#fff",
-  },
-  sideBarSteps: {
-    marginBottom: 20,
-  },
-  stepTitle: {
-    fontSize: 18,
-    fontWeight: 500,
-    marginBottom: 10,
-  },
-  list: {
-    listStyle: "none",
-    margin: 0,
-    padding: 0,
-  },
-  listItem: {
-    display: "flex",
-    alignItems: "center",
-    gap: 4,
-    margin: "8px 0",
-  },
-  checkBox: {
-    margin: 0,
-    padding: 0,
-  },
-  itemName: {
-    color: "#727272",
-    fontWeight: 400,
-  },
-  submitBtn: {
-    backgroundColor: "#1D71D3",
-    textTransform: "capitalize",
   },
   contentContainer: {
     backgroundColor: "#fff",
@@ -144,124 +121,39 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Curriculum(props) {
   const classes = useStyles();
-  const _section = (e) => {
-    // adds new section to curriculum
+
+  const [addSection, setAddSection] = useState(false);
+  const [addContent, setAddContent] = useState(false);
+  const [contentType, setContentType] = useState(null);
+  const [state] = useContext(UserContext);
+  const { course } = state;
+  const _section = () => {
+    setAddSection(true);
   };
+  const _handleAddSection = () => {
+    setAddSection(false);
+  };
+  const _addContent = () => {
+    setAddContent(true);
+  };
+  const _contentType = (e) => {
+    setContentType(e.target.value);
+  };
+  console.log(contentType, " kolo nkante");
 
   return (
     <div className={classes.createCourse}>
       <Container>
         <Grid container spacing={2}>
           <Grid item sm={12} lg={2}>
-            <div
-              style={{
-                minHeight: "90vh",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-              }}
-            >
-              <div className={classes.sideBarSteps}>
-                <h1 className={classes.stepTitle}>Plan your course</h1>
-                <ul className={classes.list}>
-                  <li className={classes.listItem}>
-                    <Checkbox color="primary" className={classes.checkBox} />
-                    <p className={classes.itemName}>Target your students</p>
-                  </li>
-
-                  <li className={classes.listItem}>
-                    <Checkbox
-                      color="primary"
-                      defaultChecked
-                      className={classes.checkBox}
-                    />
-                    <p className={classes.itemName}>Course Structure</p>
-                  </li>
-
-                  <li className={classes.listItem}>
-                    <Checkbox
-                      color="primary"
-                      defaultChecked
-                      className={classes.checkBox}
-                    />
-                    <p className={classes.itemName}>Step & Test Video</p>
-                  </li>
-                </ul>
-              </div>
-
-              <div className={classes.sideBarSteps}>
-                <h1 className={classes.stepTitle}>Create you content</h1>
-                <ul className={classes.list}>
-                  <li className={classes.listItem}>
-                    <Checkbox
-                      color="primary"
-                      defaultChecked
-                      className={classes.checkBox}
-                    />
-                    <p className={classes.itemName}>Flim & edit</p>
-                  </li>
-
-                  <li className={classes.listItem}>
-                    <Checkbox color="primary" className={classes.checkBox} />
-                    <p className={classes.itemName}>Curriculum</p>
-                  </li>
-
-                  <li className={classes.listItem}>
-                    <Checkbox color="primary" className={classes.checkBox} />
-                    <p className={classes.itemName}>Caption (optional)</p>
-                  </li>
-                </ul>
-              </div>
-
-              <div className={classes.sideBarSteps}>
-                <h1 className={classes.stepTitle}>Publish your course</h1>
-                <ul className={classes.list}>
-                  <li className={classes.listItem}>
-                    <Checkbox color="primary" className={classes.checkBox} />
-                    <p className={classes.itemName}>Course landing page</p>
-                  </li>
-
-                  <li className={classes.listItem}>
-                    <Checkbox color="primary" className={classes.checkBox} />
-                    <p className={classes.itemName}>Pricing</p>
-                  </li>
-
-                  <li className={classes.listItem}>
-                    <Checkbox
-                      color="primary"
-                      defaultChecked
-                      className={classes.checkBox}
-                    />
-                    <p className={classes.itemName}>Promotions</p>
-                  </li>
-
-                  <li className={classes.listItem}>
-                    <Checkbox
-                      color="primary"
-                      defaultChecked
-                      className={classes.checkBox}
-                    />
-                    <p className={classes.itemName}>Course messages</p>
-                  </li>
-                </ul>
-              </div>
-
-              <Button
-                color="primary"
-                variant="contained"
-                disableElevation
-                className={classes.submitBtn}
-              >
-                Submit For Review
-              </Button>
-            </div>
+            <CurriSidebar />
           </Grid>
           <Grid item sm={12} lg={10}>
             <br />
             <br />
             <div className={classes.contentContainer}>
               <div className={classes.boxHeader}>
-                <h1 className={classes.boxTitle}>Cirriculum</h1>
+                <h1 className={classes.boxTitle}>Curriculum</h1>
                 <Button
                   variant="outlined"
                   color="primary"
@@ -271,58 +163,108 @@ export default function Curriculum(props) {
                 </Button>
               </div>
               <div className={classes.detailContainer}>
-                <div className={classes.stepBox}>
-                  <div className={classes.stepHeader}>
-                    <h2 className={classes.secTitle}>Section 1: </h2>
-                    <AiFillFileAdd />
-                    <p>Intrdocution</p>
-                  </div>
-                  <br />
-                  <br />
-                  <div className={classes.contentModal}>
-                    <div className={classes.modalHeader}>
-                      <div className={classes.lefttSide}>
-                        <IoIosCheckmarkCircle />
-                        <p>Lecture 1:</p>
-                        <AiFillPlayCircle />
-                        <p>Intrdocution</p>
-                      </div>
-                      <ExpandMore />
-                    </div>
-                    <div className={classes.videoContainer}>
-                      <div>
-                        <video width="160" height="100" controls>
-                          <source
-                            src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-                            type="video/mp4"
-                          />
-                        </video>
-                      </div>
-                      <div style={{ flex: 1 }}>
-                        <h4>arithmetic101.mp4</h4>
-                        <h4>02:40</h4>
-                        <h4>Edit Content</h4>
-                      </div>
-                      <div style={{ justifyContent: "flex-end" }}>
+                {course?.curriculum?.section?.map((i, index) => (
+                  <div className={classes.stepBox} key={index}>
+                    <div className={classes.stepHeader}>
+                      <h2 className={classes.secTitle}>
+                        Section {index + 1}:{" "}
+                      </h2>
+                      <AiFillFileAdd />
+                      <p>{i.title}</p>
+                      {!addContent && (
                         <Button
                           color="primary"
-                          variant="contained"
-                          // className={classes.outlineBtnPrimary}
-                          disableElevation
+                          variant="outlined"
+                          className={classes.outlineBtnPrimary}
+                          startIcon={<Add />}
+                          onClick={_addContent}
                         >
-                          Preview
-                          <ExpandMore />
+                          Add Content
                         </Button>
-                        <br />
-                        <FormControlLabel
-                          value="start"
-                          control={<Switch color="primary" />}
-                          label="Downloadable:"
-                          labelPlacement="start"
-                        />
-                      </div>
+                      )}
                     </div>
-                    <div style={{ padding: "1%" }}>
+                    {addContent && (
+                      <FormControl component="fieldset">
+                        <RadioGroup
+                          row
+                          name="content"
+                          value={contentType}
+                          onChange={_contentType}
+                        >
+                          <FormControlLabel
+                            value="Lecture"
+                            control={<Radio />}
+                            label="Lecture"
+                          />
+                          <FormControlLabel
+                            value="Slide"
+                            control={<Radio />}
+                            label="Slide"
+                          />
+                          <FormControlLabel
+                            value="Quiz"
+                            control={<Radio />}
+                            label="Quiz"
+                          />
+                          <FormControlLabel
+                            value="Note"
+                            control={<Radio />}
+                            label="Note"
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    )}
+                    {contentType === "Lecture" ? (
+                      <Addlecture />
+                    ) : contentType === "Quiz" ? (
+                      <Addquiz />
+                    ) : contentType === "Note" ? (
+                      <Addnote />
+                    ) : null}
+                    <br />
+                    <br />
+                    {i.lecture.map((j, idx) => (
+                      <div className={classes.contentModal} key={j.title}>
+                        <div className={classes.modalHeader}>
+                          <div className={classes.lefttSide}>
+                            <IoIosCheckmarkCircle />
+                            <p>Lecture {idx + 1}:</p>
+                            <AiFillPlayCircle />
+                            <p>{j.title}</p>
+                          </div>
+                          <ExpandMore />
+                        </div>
+                        <div className={classes.videoContainer}>
+                          <div>
+                            <video width="160" height="100" controls>
+                              <source src={j.video} type="video/mp4" />
+                            </video>
+                          </div>
+                          <div style={{ flex: 1 }}>
+                            <h4>arithmetic101.mp4</h4>
+                            <h4>02:40</h4>
+                            <h4>Edit Content</h4>
+                          </div>
+                          <div style={{ justifyContent: "flex-end" }}>
+                            <Button
+                              color="primary"
+                              variant="contained"
+                              // className={classes.outlineBtnPrimary}
+                              disableElevation
+                            >
+                              Preview
+                              <ExpandMore />
+                            </Button>
+                            <br />
+                            <FormControlLabel
+                              value="start"
+                              control={<Switch color="primary" />}
+                              label="Downloadable:"
+                              labelPlacement="start"
+                            />
+                          </div>
+                        </div>
+                        {/* <div style={{ padding: "1%" }}>
                       <Button
                         color="primary"
                         variant="outlined"
@@ -340,33 +282,36 @@ export default function Curriculum(props) {
                       >
                         Resources
                       </Button>
-                    </div>
+                    </div> */}
+                      </div>
+                    ))}
                   </div>
-                </div>
+                ))}
 
                 <br />
                 <br />
-                <div className={classes.stepBox}>
-                  <div className={classes.stepHeader}>
-                    <h2 className={classes.secTitle}>Section 2: </h2>
-                    <AiFillFileAdd />
-                    <p>Getting Started</p>
-                  </div>
-                  <br />
-                  <br />
-                  <div className={classes.contentModal}>
-                    <div className={classes.modalHeader}>
-                      <div className={classes.lefttSide}>
-                        <IoIosCheckmarkCircle />
-                        <p>Lecture 2:</p>
-                        <AiFillPlayCircle />
-                        <p>Requirements</p>
-                      </div>
-                      <ExpandMore />
-                    </div>
-                  </div>
+                {!addSection && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={_section}
+                  >
+                    Add Section
+                  </Button>
+                )}
+
+                <div>
+                  {addSection && (
+                    <form>
+                      <TextField id="sectionName" placeholder="Section Name" />
+                      <TextField
+                        id="sectionDescription"
+                        placeholder="Section Description"
+                      />
+                      <Button onClick={_handleAddSection}>Submit</Button>
+                    </form>
+                  )}
                 </div>
-                <Button>ADd Section</Button>
               </div>
               <Button
                 style={{ float: "right" }}

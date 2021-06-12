@@ -8,7 +8,7 @@ import {
   Home,
   NotificationsOutlined,
 } from "@material-ui/icons";
-import Logo from "./../../Assets/logo.png";
+import Logo from "./../../Assets/500x135.png";
 
 import clsx from "clsx";
 import { Link } from "react-router-dom";

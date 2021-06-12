@@ -1,29 +1,8 @@
 import React, { createContext, useReducer } from "react";
+import { demoCourse } from "../util/mockData";
 const initialState = {
   user: {},
-  course: {
-    course: "",
-    target: {},
-    curriculum: [
-      {
-        section: [
-          {
-            title: "",
-            description: "",
-            lecture: [{ title: "", video: "", slide: "", brief: "" }],
-            quiz: {
-              title: "",
-              question: "",
-              answers: [],
-              correct: "",
-              relatedToSection: "",
-            },
-            note: { title: "", note: "" },
-          },
-        ],
-      },
-    ],
-  },
+  course: demoCourse,
 };
 const UserContext = createContext(initialState);
 
@@ -34,7 +13,7 @@ const UserProvider = ({ children }) => {
         break;
 
       default:
-        break;
+        return state;
     }
   }, initialState);
   return (

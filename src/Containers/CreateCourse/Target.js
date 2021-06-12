@@ -1,15 +1,8 @@
 /** @format */
 import React from "react";
-import {
-  Button,
-  Checkbox,
-  Container,
-  Grid,
-  TextField,
-} from "@material-ui/core";
+import { Button, Container, Grid, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
-import { useHistory } from "react-router-dom";
+import CurriSidebar from "./CurriSidebar";
 
 const useStyles = makeStyles((theme) => ({
   createCourse: {
@@ -43,37 +36,6 @@ const useStyles = makeStyles((theme) => ({
   contentDetail: {
     color: "#fff",
   },
-  sideBarSteps: {
-    marginBottom: 20,
-  },
-  stepTitle: {
-    fontSize: 18,
-    fontWeight: 500,
-    marginBottom: 10,
-  },
-  list: {
-    listStyle: "none",
-    margin: 0,
-    padding: 0,
-  },
-  listItem: {
-    display: "flex",
-    alignItems: "center",
-    gap: 4,
-    margin: "8px 0",
-  },
-  checkBox: {
-    margin: 0,
-    padding: 0,
-  },
-  itemName: {
-    color: "#727272",
-    fontWeight: 400,
-  },
-  submitBtn: {
-    backgroundColor: "#1D71D3",
-    textTransform: "capitalize",
-  },
   contentContainer: {
     backgroundColor: "#fff",
     borderRadius: 5,
@@ -98,119 +60,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Target(props) {
   const classes = useStyles();
-  const history = useHistory();
-  const _submit = () => {
-    history.push("create-course2");
-  };
 
   return (
     <div className={classes.createCourse}>
       <Container>
         <Grid container spacing={2}>
           <Grid item sm={12} lg={2}>
-            <div
-              style={{
-                minHeight: "90vh",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-              }}
-            >
-              <div className={classes.sideBarSteps}>
-                <h1 className={classes.stepTitle}>Plan your course</h1>
-                <ul className={classes.list}>
-                  <li className={classes.listItem}>
-                    <Checkbox color="primary" className={classes.checkBox} />
-                    <p className={classes.itemName}>Target your students</p>
-                  </li>
-
-                  <li className={classes.listItem}>
-                    <Checkbox
-                      color="primary"
-                      defaultChecked
-                      className={classes.checkBox}
-                    />
-                    <p className={classes.itemName}>Course Structure</p>
-                  </li>
-
-                  <li className={classes.listItem}>
-                    <Checkbox
-                      color="primary"
-                      defaultChecked
-                      className={classes.checkBox}
-                    />
-                    <p className={classes.itemName}>Step & Test Video</p>
-                  </li>
-                </ul>
-              </div>
-
-              <div className={classes.sideBarSteps}>
-                <h1 className={classes.stepTitle}>Create you content</h1>
-                <ul className={classes.list}>
-                  <li className={classes.listItem}>
-                    <Checkbox
-                      color="primary"
-                      defaultChecked
-                      className={classes.checkBox}
-                    />
-                    <p className={classes.itemName}>Flim & edit</p>
-                  </li>
-
-                  <li className={classes.listItem}>
-                    <Checkbox color="primary" className={classes.checkBox} />
-                    <p className={classes.itemName}>Curriculum</p>
-                  </li>
-
-                  <li className={classes.listItem}>
-                    <Checkbox color="primary" className={classes.checkBox} />
-                    <p className={classes.itemName}>Caption (optional)</p>
-                  </li>
-                </ul>
-              </div>
-
-              <div className={classes.sideBarSteps}>
-                <h1 className={classes.stepTitle}>Publish your course</h1>
-                <ul className={classes.list}>
-                  <li className={classes.listItem}>
-                    <Checkbox color="primary" className={classes.checkBox} />
-                    <p className={classes.itemName}>Course landing page</p>
-                  </li>
-
-                  <li className={classes.listItem}>
-                    <Checkbox color="primary" className={classes.checkBox} />
-                    <p className={classes.itemName}>Pricing</p>
-                  </li>
-
-                  <li className={classes.listItem}>
-                    <Checkbox
-                      color="primary"
-                      defaultChecked
-                      className={classes.checkBox}
-                    />
-                    <p className={classes.itemName}>Promotions</p>
-                  </li>
-
-                  <li className={classes.listItem}>
-                    <Checkbox
-                      color="primary"
-                      defaultChecked
-                      className={classes.checkBox}
-                    />
-                    <p className={classes.itemName}>Course messages</p>
-                  </li>
-                </ul>
-              </div>
-
-              <Button
-                color="primary"
-                variant="contained"
-                disableElevation
-                className={classes.submitBtn}
-                onClick={_submit}
-              >
-                Submit For Review
-              </Button>
-            </div>
+            <CurriSidebar />
           </Grid>
           <Grid item sm={12} lg={10}>
             <br />

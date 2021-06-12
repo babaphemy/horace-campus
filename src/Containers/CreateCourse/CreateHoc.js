@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AppBar, makeStyles, Tab, Tabs, Box, Button } from "@material-ui/core";
 import { Settings, ArrowBackIos } from "@material-ui/icons";
 import Target from "./Target";
 import Curriculum from "./Curriculum";
 import Preview from "./Preview";
 import { Header, Navbar } from "../../Components";
+import { UserContext } from "../../Context/UserProvider";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -51,6 +52,8 @@ function TabPanel(props) {
 const CreateHoc = (props) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
+  const [state] = useContext(UserContext);
+  const { course } = state;
   const _change = (ev, val) => {
     if (val === 10) {
       alert("done");
@@ -80,9 +83,7 @@ const CreateHoc = (props) => {
             </Button>
           )}
 
-          <h3 className={classes.courseTitle}>
-            JavaScript for Modern Web Development
-          </h3>
+          <h3 className={classes.courseTitle}>{course?.courseName}</h3>
           <Button className={classes.whiteBtn}>Darft</Button>
           <p className={classes.contentDetail}>
             3min of video content uploaded
