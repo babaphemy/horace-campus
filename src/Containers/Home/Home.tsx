@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Navbar } from "./../../Components";
+import { Header, Navbar } from "../../Components";
 import { makeStyles } from "@material-ui/core/styles";
 import { Badge, Container, Grid, Link } from "@material-ui/core";
 import {
@@ -9,7 +9,6 @@ import {
   MessageOutlined,
 } from "@material-ui/icons";
 
-import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -120,8 +119,13 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
   },
 }));
+interface TabpanelProps {
+  children?: React.ReactNode;
+  index: any;
+  value: any;
+}
 
-function TabPanel(props) {
+function TabPanel(props: TabpanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
@@ -141,13 +145,7 @@ function TabPanel(props) {
   );
 }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
+function a11yProps(index: any) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
@@ -159,7 +157,7 @@ function Home() {
 
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
   return (
@@ -268,7 +266,7 @@ function Home() {
                   <h2 className={classes.notiTitle}>
                     Important Changes to the Classroom Navigation Bar
                   </h2>
-                  <div className={classes.notiExpand}>
+                  <div>
                     <div className={classes.notiBody}>
                       <Close />
                     </div>
@@ -276,7 +274,7 @@ function Home() {
                       <p>Posted May 12, 2021 12:01 AM</p> <Language />{" "}
                       <p>Global</p>
                     </div>
-                    <div className={classes.notiBodyContent}>
+                    <div>
                       <p className={classes.paragraph}>
                         Effective May 12, learners and faculty may notice
                         changes to the navigation bar in UMGC classrooms, These
@@ -323,11 +321,11 @@ function Home() {
                     <h2 className={classes.accordinTitle}>Upcoming Events</h2>
                     <ExpandMore />
                   </div>
-                  <div className={classes.accordinBody} display={false}>
+                  {/* <div className={classes.accordinBody} display={false}>
                     <p className={classes.accordinDetail}>
                       There is no events to display.
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </Grid>

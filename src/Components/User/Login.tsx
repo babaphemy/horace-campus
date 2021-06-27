@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -9,7 +9,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import User from "../../Containers/User/User";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { userLogin } from "../../Api/UserApi";
+import { useContext } from "react";
+import { UserContext } from "../../Context/UserProvider";
+import { USER_ADD } from "../../Context/Actions";
+import { useEffect } from "react";
 const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -19,11 +24,36 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-const Login = () => {
+const Login: FunctionComponent = () => {
   const classes = useStyles();
+  const [state, dispatch] = useContext(UserContext);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPass] = useState<string>("");
+  const [err, setError] = useState<string>("");
+  const history = useHistory();
+  useEffect(() => {
+    "token" in state.user && history.push("home");
+  }, [state, history]);
+  const _change = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    id === "email" ? setEmail(value) : setPass(value);
+  };
+  const _login = () => {
+    email &&
+      password &&
+      userLogin({ email, password })
+        .then((res) => {
+          res?.data && dispatch({ type: USER_ADD, data: res?.data });
+          "token" in res?.data && history.push("home");
+        })
+        .catch(() => setError("Login failed!, please retry"));
+  };
   return (
     <User title="Login">
-      <form className={classes.form} noValidate>
+      <Typography variant="caption" color="error">
+        {err}
+      </Typography>
+      <div className={classes.form}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -34,6 +64,7 @@ const Login = () => {
               label="Email Address"
               name="email"
               autoComplete="email"
+              onChange={_change}
             />
           </Grid>
           <Grid item xs={12}>
@@ -46,12 +77,13 @@ const Login = () => {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={_change}
             />
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel
               control={<Checkbox value="allowExtraEmails" />}
-              label="I want to receive inspiration, marketing promotions and updates via email."
+              label="Remember me on this computer."
             />
           </Grid>
         </Grid>
@@ -61,6 +93,7 @@ const Login = () => {
           variant="contained"
           color="secondary"
           className={classes.submit}
+          onClick={_login}
         >
           Login
         </Button>
@@ -76,7 +109,7 @@ const Login = () => {
             </Link>
           </Grid>
         </Grid>
-      </form>
+      </div>
     </User>
   );
 };

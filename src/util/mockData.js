@@ -86,4 +86,5 @@ export const demoCourse = {
       },
     ],
   },
+  brief: "",
 };
