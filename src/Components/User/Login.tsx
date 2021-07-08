@@ -100,12 +100,16 @@ const Login: FunctionComponent = () => {
         <Grid container justify="space-between">
           <Grid item>
             <Link to="signup">
-              <Typography variant="body2">New User? Sign up</Typography>
+              <Typography variant="body2" color="error">
+                New User? Sign up
+              </Typography>
             </Link>
           </Grid>
           <Grid item>
             <Link to="forgot">
-              <Typography variant="body2">Forgot Password?</Typography>
+              <Typography variant="body2" color="error">
+                Forgot Password?
+              </Typography>
             </Link>
           </Grid>
         </Grid>

@@ -14,6 +14,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   home: {
@@ -156,7 +157,17 @@ function Home() {
   const classes = useStyles();
 
   const [value, setValue] = React.useState(0);
-
+  useEffect(() => {
+    fetch("https://extreme-ip-lookup.com/json/")
+      .then((res) => res.json())
+      .then((response) => {
+        console.log("Country: ", response.country, response);
+      })
+      //@ts-ignore
+      .catch((data, status) => {
+        console.log("Request failed", status, data);
+      });
+  }, []);
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };

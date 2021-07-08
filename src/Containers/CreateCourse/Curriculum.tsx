@@ -82,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#efefef",
     borderRadius: 4,
     padding: "1%",
+    marginBottom: 5,
   },
   stepHeader: {
     display: "flex",
