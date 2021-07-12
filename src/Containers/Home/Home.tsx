@@ -14,14 +14,14 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { useEffect } from "react";
+import h from "../../Assets/horace-header.jpeg";
 
 const useStyles = makeStyles((theme) => ({
   home: {
     backgroundColor: "#f2f2f2",
   },
   hero: {
-    backgroundImage: `url(${"https://dummyimage.com/1200x200/000/000"})`,
+    backgroundImage: `url(${h})`,
     height: 150,
     padding: "1%",
     display: "flex",
@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
   classesBox: {
     padding: "2%",
     backgroundColor: "#fff",
+    borderTopColor: "#CB2C30",
+    borderTopWidth: 8,
+    borderTopStyle: "solid",
   },
   boxHeader: {
     display: "flex",
@@ -157,17 +160,17 @@ function Home() {
   const classes = useStyles();
 
   const [value, setValue] = React.useState(0);
-  useEffect(() => {
-    fetch("https://extreme-ip-lookup.com/json/")
-      .then((res) => res.json())
-      .then((response) => {
-        console.log("Country: ", response.country, response);
-      })
-      //@ts-ignore
-      .catch((data, status) => {
-        console.log("Request failed", status, data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://extreme-ip-lookup.com/json/")
+  //     .then((res) => res.json())
+  //     .then((response) => {
+  //       console.log("Country: ", response.country, response);
+  //     })
+  //     //@ts-ignore
+  //     .catch((data, status) => {
+  //       console.log("Request failed", status, data);
+  //     });
+  // }, []);
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
@@ -177,13 +180,11 @@ function Home() {
       <Navbar />
 
       <Container>
-        <div className={classes.hero}>
-          <p className={classes.headerTitle}>Horace Learning</p>
-        </div>
+        <div className={classes.hero}></div>
         <br />
         <div>
           <Grid container spacing={5}>
-            <Grid item sm={12} md={6} lg={6}>
+            <Grid item sm={12} md={12} lg={12}>
               <div className={classes.classesBox}>
                 <div className={classes.boxHeader}>
                   <p className={classes.boxTitle}>My Classes</p> <ExpandMore />
@@ -201,9 +202,9 @@ function Home() {
                   >
                     <Tab label="All" {...a11yProps(0)} />
                     <Tab label="Pinned" {...a11yProps(1)} />
-                    <Tab label="2021 Summer" {...a11yProps(2)} />
-                    <Tab label="2021 Spring" {...a11yProps(3)} />
-                    <Tab label="2020 Summer" {...a11yProps(4)} />
+                    <Tab label="My Class" {...a11yProps(2)} />
+                    <Tab label="Recommended" {...a11yProps(3)} />
+                    <Tab label="Trending" {...a11yProps(4)} />
                   </Tabs>
                 </AppBar>
                 <TabPanel value={value} index={0}>
@@ -250,7 +251,7 @@ function Home() {
                   </div>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                  Item Two
+                  Pinned
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                   Item Three
@@ -262,8 +263,115 @@ function Home() {
                   Item Five
                 </TabPanel>
 
-                <div className={classes.boxHeader}>
+                <div>
                   <Link href="">View All Courses (2)</Link>
+                </div>
+              </div>
+            </Grid>
+            <Grid item sm={12} md={12} lg={12}>
+              <div className={classes.classesBox}>
+                <div className={classes.boxHeader}>
+                  <p className={classes.boxTitle}>Trending</p>
+                </div>
+
+                <AppBar
+                  position="static"
+                  style={{ backgroundColor: "#fff", color: "#000" }}
+                  elevation={0}
+                ></AppBar>
+
+                <div className={classes.cardBox}>
+                  <div className={classes.card}>
+                    <img
+                      src="https://dummyimage.com/300x150/000/fff"
+                      alt=""
+                      width="100%"
+                    />
+                    <div className={classes.cardBody}>
+                      <h2 className={classes.cardTitle}>
+                        INFA 610 9040 Foundations of Information Security and
+                        Assurance (2015)
+                      </h2>
+                      <p className={classes.date}>
+                        Starts May 18, 2021 at 11:00pm
+                      </p>
+                      <br />
+                      <Badge badgeContent={4} color="primary">
+                        <MessageOutlined />
+                      </Badge>
+                      <br />
+                      <br />
+                    </div>
+                  </div>
+
+                  <div className={classes.card}>
+                    <img
+                      src="https://dummyimage.com/300x150/000/fff"
+                      alt=""
+                      width="100%"
+                    />
+                    <div className={classes.cardBody}>
+                      <h2 className={classes.cardTitle}>
+                        INFA 610 9040 Foundations of Information Security and
+                        Assurance (2015)
+                      </h2>
+                      <p className={classes.date}>
+                        Starts May 18, 2021 at 11:00pm
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <Link href="">View All Trending (2)</Link>
+                </div>
+              </div>
+            </Grid>
+            <Grid item sm={12} md={6} lg={6}>
+              <div className={classes.classesBox}>
+                <div className={classes.boxHeader}>
+                  <p className={classes.boxTitle}>Trending</p>
+                </div>
+                <div className={classes.cardBox}>
+                  <div className={classes.card}>
+                    <img
+                      src="https://dummyimage.com/300x150/000/fff"
+                      alt=""
+                      width="100%"
+                    />
+                    <div className={classes.cardBody}>
+                      <h2 className={classes.cardTitle}>
+                        INFA 610 9040 Foundations of Information Security and
+                        Assurance (2015)
+                      </h2>
+                      <p className={classes.date}>
+                        Starts May 18, 2021 at 11:00pm
+                      </p>
+                      <br />
+                      <Badge badgeContent={4} color="primary">
+                        <MessageOutlined />
+                      </Badge>
+                      <br />
+                      <br />
+                    </div>
+                  </div>
+
+                  <div className={classes.card}>
+                    <img
+                      src="https://dummyimage.com/300x150/000/fff"
+                      alt=""
+                      width="100%"
+                    />
+                    <div className={classes.cardBody}>
+                      <h2 className={classes.cardTitle}>
+                        INFA 610 9040 Foundations of Information Security and
+                        Assurance (2015)
+                      </h2>
+                      <p className={classes.date}>
+                        Starts May 18, 2021 at 11:00pm
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </Grid>
@@ -308,6 +416,52 @@ function Home() {
           </Grid>
 
           <Grid container spacing={5}>
+            <Grid item sm={12} md={6} lg={6}>
+              <div className={classes.classesBox}>
+                <div className={classes.boxHeader}>
+                  <p className={classes.boxTitle}>Blog</p>
+                </div>
+                <div className={classes.cardBox}>
+                  <div className={classes.card}>
+                    <img
+                      src="https://dummyimage.com/300x150/000/fff"
+                      alt=""
+                      width="100%"
+                    />
+                    <div className={classes.cardBody}>
+                      <h2 className={classes.cardTitle}>Introducing Kotlin</h2>
+                      <p className={classes.date}>
+                        Starts May 18, 2021 at 11:00pm
+                      </p>
+                      <br />
+                      <Badge badgeContent={4} color="primary">
+                        <MessageOutlined />
+                      </Badge>
+                      <br />
+                      <br />
+                    </div>
+                  </div>
+
+                  <div className={classes.card}>
+                    <img
+                      src="https://dummyimage.com/300x150/000/fff"
+                      alt=""
+                      width="100%"
+                    />
+                    <div className={classes.cardBody}>
+                      <h2 className={classes.cardTitle}>
+                        INFA 610 9040 Foundations of Information Security and
+                        Assurance (2015)
+                      </h2>
+                      <p className={classes.date}>
+                        Starts May 18, 2021 at 11:00pm
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Grid>
+
             <Grid item sm={12} md={6} lg={6}>
               <div className={classes.classesBox}>
                 <div className={classes.boxHeader}>

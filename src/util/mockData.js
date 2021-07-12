@@ -88,3 +88,19 @@ export const demoCourse = {
   },
   brief: "",
 };
+export const fCourse = [
+  {
+    title: "Introduction To React",
+    brief: "Learn the most popular javascript framework",
+    startsOn: new Date(),
+    thumbnail: "https://dummyimage.com/300x150/000/fff",
+    isFree: true,
+  },
+  {
+    title: "Introduction To Kotlin",
+    brief: "Beyond android development, build java applicdations with Kotlin0",
+    startsOn: new Date(),
+    thumbnail: "https://dummyimage.com/300x150/000/fff",
+    isFree: true,
+  },
+];
