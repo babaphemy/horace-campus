@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Header, Navbar } from "../../Components";
 import { makeStyles } from "@material-ui/core/styles";
 import { Badge, Container, Grid, Link } from "@material-ui/core";
@@ -15,6 +15,8 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import h from "../../Assets/horace-header.jpeg";
+import { getFreeCourses } from "../../Api/CourseApi";
+import { tCourseLte } from "../../util/types";
 
 const useStyles = makeStyles((theme) => ({
   home: {
@@ -158,8 +160,13 @@ function a11yProps(index: any) {
 
 function Home() {
   const classes = useStyles();
-
-  const [value, setValue] = React.useState(0);
+  const [courses, setCourses] = useState<tCourseLte[]>([]);
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    getFreeCourses().then((res) => {
+      if ("data" in res) setCourses(res?.data);
+    });
+  }, []);
   // useEffect(() => {
   //   fetch("https://extreme-ip-lookup.com/json/")
   //     .then((res) => res.json())
@@ -209,45 +216,31 @@ function Home() {
                 </AppBar>
                 <TabPanel value={value} index={0}>
                   <div className={classes.cardBox}>
-                    <div className={classes.card}>
-                      <img
-                        src="https://dummyimage.com/300x150/000/fff"
-                        alt=""
-                        width="100%"
-                      />
-                      <div className={classes.cardBody}>
-                        <h2 className={classes.cardTitle}>
-                          INFA 610 9040 Foundations of Information Security and
-                          Assurance (2015)
-                        </h2>
-                        <p className={classes.date}>
-                          Starts May 18, 2021 at 11:00pm
-                        </p>
-                        <br />
-                        <Badge badgeContent={4} color="primary">
-                          <MessageOutlined />
-                        </Badge>
-                        <br />
-                        <br />
+                    {courses.map((cs) => (
+                      <div key={cs.id} className={classes.card}>
+                        <img
+                          src={
+                            cs.thumbnail ||
+                            `https://dummyimage.com/300x150/000/fff`
+                          }
+                          alt={`horace-${cs.courseName}`}
+                          width="100%"
+                        />
+                        <div className={classes.cardBody}>
+                          <h2 className={classes.cardTitle}>{cs.courseName}</h2>
+                          <p className={classes.date}>
+                            Last modified {cs.createdOn}
+                          </p>
+                          <p>Author: {cs.author}</p>
+                          <br />
+                          <Badge badgeContent={4} color="primary">
+                            <MessageOutlined />
+                          </Badge>
+                          <br />
+                          <br />
+                        </div>
                       </div>
-                    </div>
-
-                    <div className={classes.card}>
-                      <img
-                        src="https://dummyimage.com/300x150/000/fff"
-                        alt=""
-                        width="100%"
-                      />
-                      <div className={classes.cardBody}>
-                        <h2 className={classes.cardTitle}>
-                          INFA 610 9040 Foundations of Information Security and
-                          Assurance (2015)
-                        </h2>
-                        <p className={classes.date}>
-                          Starts May 18, 2021 at 11:00pm
-                        </p>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
@@ -264,7 +257,7 @@ function Home() {
                 </TabPanel>
 
                 <div>
-                  <Link href="">View All Courses (2)</Link>
+                  <Link href="">View All Courses ({courses.length})</Link>
                 </div>
               </div>
             </Grid>

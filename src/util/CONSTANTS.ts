@@ -1,4 +1,5 @@
-export const BASE_URL: string = "http://localhost:5071/api/";
+export const BASE_URL: string =
+  process.env.NODE_ENV === "production" ? "" : "http://localhost:5071/";
 export const POST_SETTINGS = (obj: any) => {
   return {
     method: "POST",
