@@ -14,7 +14,7 @@ export function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {`Copyright © `}
-      <Link color="inherit">Horace Learning </Link>
+      <Link>Horace Learning </Link>
       {new Date().getFullYear()}
       {`.`}
     </Typography>
@@ -107,7 +107,7 @@ const Signup = () => {
         <Grid container justify="flex-end">
           <Grid item>
             <Link to="login">
-              <Typography variant="body2">
+              <Typography variant="body2" color="error">
                 Already have an account? Sign in
               </Typography>
             </Link>

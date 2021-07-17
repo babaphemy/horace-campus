@@ -53,7 +53,7 @@ const Forgot = () => {
         <Grid container justify="flex-end">
           <Grid item>
             <Link to="/login">
-              <Typography variant="body2">
+              <Typography variant="body2" color="error">
                 Already have an account? Login
               </Typography>
             </Link>

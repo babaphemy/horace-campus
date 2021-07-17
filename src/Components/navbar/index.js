@@ -17,49 +17,49 @@ function Navbar() {
   return (
     <div className={classes.navbar}>
       <Container maxWidth="lg">
-        <nav role="navigation" class="menu">
-          <label for="menu">
+        <nav role="navigation" className="menu">
+          <label htmlFor="menu">
             <Menu />
           </label>
           <input type="checkbox" id="menu" />
           <ul>
-            <li class="menu-hasdropdown">
+            <li className="menu-hasdropdown">
               <Link to="#">
                 Help
-                <label title="toggle menu" for="about">
+                <label title="toggle menu" htmlFor="about">
                   <ExpandMore />
                 </label>
                 <input type="checkbox" id="about" />
               </Link>
-              <ul class="menu-dropdown">
+              <ul className="menu-dropdown">
                 <li>
                   <Link to="">Help</Link>
                 </li>
                 <li>
                   <Link to="">Help</Link>
                 </li>
-                <li class="menu-hasdropdown menu-hasflyout">
+                <li className="menu-hasdropdown menu-hasflyout">
                   <Link to="">Help</Link>
                 </li>
               </ul>
             </li>
 
-            <li class="menu-hasdropdown">
+            <li className="menu-hasdropdown">
               <Link to="#">
                 Resources
-                <label title="toggle menu" for="about">
+                <label title="toggle menu" htmlFor="about">
                   <ExpandMore />
                 </label>
                 <input type="checkbox" id="about" />
               </Link>
-              <ul class="menu-dropdown">
+              <ul className="menu-dropdown">
                 <li>
                   <Link to="create-course">Create Course</Link>
                 </li>
                 <li>
                   <Link to="classroom">Classroom</Link>
                 </li>
-                <li class="menu-hasdropdown menu-hasflyout">
+                <li className="menu-hasdropdown menu-hasflyout">
                   <Link to="/">Resources</Link>
                 </li>
               </ul>

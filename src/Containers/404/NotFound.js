@@ -1,10 +1,11 @@
 import React from "react";
+import "./notfound.css";
 
 class NotFound extends React.Component {
   render() {
     return (
-      <div>
-        <h1> NotFound </h1>
+      <div className="parent">
+        <h1 className="child"> NotFound </h1>
       </div>
     );
   }
