@@ -105,7 +105,7 @@ const CreateHoc: FunctionComponent<Props> = (props: Props) => {
         <Curriculum nextTab={_change} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Preview />
+        <Preview nextTab={() => console.log("finsihed")} />
       </TabPanel>
     </div>
   );

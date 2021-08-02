@@ -61,6 +61,8 @@ export type tCourse = {
   createdOn: Date;
   updatedOn: Date;
   curriculum?: tCurriculum;
+  author?: string;
+  
 };
 export type tCourseLte = {
   author: string;
