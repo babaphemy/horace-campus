@@ -98,6 +98,7 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid #727272",
     backgroundColor: "#fff",
     borderRadius: 4,
+    marginBottom: 5,
   },
   modalHeader: {
     display: "flex",
@@ -132,6 +133,7 @@ const Curriculum: FunctionComponent<Props> = (props: Props) => {
   const [currSection, setSection] = useState<number>(1);
   const [contentType, setContentType] = useState<string | null>(null);
   const [state, dispatch] = useContext(UserContext);
+
   const { course } = state;
   const _section = () => {
     setAddSection(true);
