@@ -133,7 +133,7 @@ const Target: FunctionComponent<Props> = (props: Props) => {
                       )}
                       rules={{ required: "This field is required!" }}
                     />
-                    <p>Briefly describe this course be called?</p>
+                    <p>Briefly describe this course </p>
                     <Controller
                       name="brief"
                       control={control}
