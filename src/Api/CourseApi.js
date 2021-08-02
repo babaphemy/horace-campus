@@ -8,3 +8,11 @@ export const getFreeCourses = async () => {
   const data = await response.json();
   return { data };
 };
+export const acourse = async (cid) => {
+  const response = await fetch(`${BASE_URL}course/${cid}`, AUTH);
+  if (!response.ok) {
+    return { error: response.status };
+  }
+  const data = await response.json();
+  return { data };
+};

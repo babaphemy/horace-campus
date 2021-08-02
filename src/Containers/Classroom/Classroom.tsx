@@ -1,32 +1,37 @@
 /** @format */
-import React, { useState } from "react";
-import { Container, Grid } from "@material-ui/core";
-import "./../../../node_modules/video-react/dist/video-react.css";
-import { Player } from "video-react";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { Button, Container, Grid, Paper, Typography } from "@material-ui/core";
 import {
   AiOutlineLike,
   AiOutlineDislike,
   AiOutlineFlag,
   AiOutlineEdit,
   AiOutlineFileAdd,
-  AiFillPlayCircle,
-  AiFillLock,
 } from "react-icons/ai";
-import { makeStyles } from "@material-ui/core/styles";
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  withStyles,
+} from "@material-ui/core/styles";
 
-import { FaRegSave, FaRegShareSquare, FaBookOpen } from "react-icons/fa";
+import { FaRegShareSquare } from "react-icons/fa";
 import { BsBoxArrowUpRight } from "react-icons/bs";
 
 import Popover from "@material-ui/core/Popover";
-import { Navbar, Header } from "./../../Components";
-import {
-  ExpandMore,
-  ArrowBackIos,
-  ArrowForwardIos,
-  Print,
-  Settings,
-} from "@material-ui/icons";
-
+import { Navbar, Header } from "../../Components";
+import Badge from "@material-ui/core/Badge";
+import { Forum } from "@material-ui/icons";
+import IconButton from "@material-ui/core/IconButton";
+import { useParams } from "react-router";
+import { acourse } from "../../Api/CourseApi";
+import CourseRating from "../../Components/course/Rating";
+import { tCourse } from "../../util/types";
+import Curi from "./SectionView";
+import { Stream } from "@cloudflare/stream-react";
+interface Props {
+  cid: String;
+}
 const useStyles = makeStyles((theme) => ({
   classRoom: {
     backgroundColor: "#efefef",
@@ -76,12 +81,6 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid #727272",
     borderRadius: "50px",
   },
-  middleSecHeader: {
-    display: "flex",
-    backgroundColor: "#fff",
-    padding: "1%",
-    justifyContent: "flex-end",
-  },
   middleSection: {
     padding: "0 2%",
     backgroundColor: "#fff",
@@ -89,14 +88,15 @@ const useStyles = makeStyles((theme) => ({
   },
   middleSecTitle: {
     fontSize: 30,
+    width: "100%",
     padding: "1% 0",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   textPrimaryColor: {
     color: "#0087E4",
     fontSize: 14,
-  },
-  nextPreBtnBox: {
-    display: "flex",
   },
   nextPreBtn: {
     backgroundColor: "#fff",
@@ -155,22 +155,50 @@ const useStyles = makeStyles((theme) => ({
     gap: "10px",
     padding: "40px 4%",
   },
+  noteText: {
+    fontSize: 14,
+    color: "#727272",
+  },
 }));
+const StyledBadge = withStyles((theme: Theme) =>
+  createStyles({
+    badge: {
+      right: -3,
+      top: 13,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: "0 4px",
+    },
+  })
+)(Badge);
 
-export default function Classroom(props) {
+const Classroom: FunctionComponent<Props> = (props: Props) => {
   const classes = useStyles();
-  const [notes, setNotes] = useState([]);
-  const [note, setNote] = useState();
+  const [notes, setNotes] = useState<string[]>([]);
+  const [note, setNote] = useState<string>();
+  const { cid } = useParams<{ cid?: string }>();
+  const [course, setCourse] = useState<tCourse | null>(null);
+  const [anchorEl, setAnchorEl] = React.useState<any>(null);
 
+  useEffect(() => {
+    acourse(cid).then((data) => {
+      setCourse(data?.data);
+    });
+  }, [cid]);
   const [videLink] = useState(
     "https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
   );
   const [videoThumbnail] = useState(
     "https://www.wowmakers.com/blog/wp-content/uploads/2019/02/Video-thumbnail.jpg"
   );
-  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = (event) => {
+  // const [videLink] = useState(
+  //   "https://videodelivery.net/60e48816049c482b833d40e922f303c8/manifest/video.m3u8"
+  // );
+  // const [videoThumbnail] = useState(
+  //   "https://videodelivery.net/60e48816049c482b833d40e922f303c8/thumbnails/thumbnail.jpg"
+  // );
+
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -178,13 +206,14 @@ export default function Classroom(props) {
     setAnchorEl(null);
   };
 
-  const addNotes = () => {
-    notes.push(note);
-    setNotes(notes);
-    handleClose();
-  };
+  // const addNotes = (note: string) => {
+  //   notes.push(note);
+  //   setNotes(notes);
+  //   handleClose();
+  // };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+  const curriculum = course?.curriculum;
   return (
     <div className={classes.classRoom}>
       <Header />
@@ -192,20 +221,14 @@ export default function Classroom(props) {
 
       <Container>
         <div className={classes.hero}>
-          <p className={classes.heroTitle}>
-            INFA 610 9040 Foundations of Information Security and Assurance
-            (2215)
-          </p>
+          <p className={classes.heroTitle}>{course?.courseName}</p>
         </div>
         <Grid container>
           <Grid item sm={12} xs={12} md={3} lg={3}>
-            <div>
-              <div className={classes.sectionHeader}>
-                <h1>Alerts</h1>
-                <ExpandMore />
-              </div>
+            <Paper elevation={3}>
               <div className={classes.sideNav}>
-                <ul className={classes.sideNavItems}>
+                {curriculum && <Curi curriculum={curriculum} />}
+                {/* <ul className={classes.sideNavItems}>
                   <li className={classes.navItem}>
                     <FaBookOpen className={classes.sideBarIcons} />
                     <div>
@@ -245,33 +268,26 @@ export default function Classroom(props) {
                       <p>10 mint</p>
                     </div>
                   </li>
-                </ul>
+                </ul> */}
               </div>
-            </div>
+            </Paper>
           </Grid>
 
           <Grid item sm={12} xs={12} md={6} lg={6}>
-            <div className={classes.middleSecHeader}>
-              <p className={classes.textPrimaryColor}>Today and Tommorrow </p>
-              <ExpandMore /> <p>INFA 610 Quiz 1 - Availabilty Ends</p>
-              <div className={classes.nextPreBtnBox}>
-                <button className={classes.nextPreBtn}>
-                  <ArrowBackIos /> Next
-                </button>
-                <button className={classes.nextPreBtn}>
-                  Previous <ArrowForwardIos />
-                </button>
+            <Paper className={classes.middleSection}>
+              <div className={classes.middleSecTitle}>
+                <CourseRating value={5} read={true} />
+                <div>
+                  <IconButton aria-label="cart">
+                    <StyledBadge badgeContent={4} color="secondary">
+                      <Forum />
+                    </StyledBadge>
+                  </IconButton>
+                </div>
               </div>
-            </div>
-            <div className={classes.middleSection}>
-              <p className={classes.middleSecTitle}>Average Ratings</p>
               <div>
-                <Player
-                  playsInline
-                  poster={videoThumbnail}
-                  src={videLink}
-                  className="_video"
-                />
+                <Stream controls src={videLink} />
+
                 <div className={classes.videoBar}>
                   <div
                     style={{
@@ -281,8 +297,6 @@ export default function Classroom(props) {
                       gap: "10px",
                     }}
                   >
-                    <FaRegSave color="grey" />
-                    <span>Save Note</span>
                     <select className={classes.downDropdown}>
                       <option>Download</option>
                       <option>Download</option>
@@ -303,7 +317,7 @@ export default function Classroom(props) {
                   </div>
                 </div>
 
-                <div style={{ display: "flex", padding: "1%" }}>
+                {/* <div style={{ display: "flex", padding: "1%" }}>
                   <div style={{ flex: 1 }}>
                     <select className={classes.langDropdown}>
                       <option>English</option>
@@ -311,34 +325,18 @@ export default function Classroom(props) {
                       <option>French</option>
                     </select>
                   </div>
-                  <p>Help Us Translate</p>
-                </div>
+                </div> */}
 
                 <div style={{ display: "flex", padding: "1%", gap: "10px" }}>
                   <p>0:03</p>
-                  <p>
-                    Hi, let's get some recommondation about movies, The first
-                    thing you're going to do is take a list of movies, see if
-                    each one has enough recommondation for a meaningful average
-                    and, if so
-                  </p>
+                  <Typography variant="body1">{course?.brief}</Typography>
                 </div>
               </div>
-            </div>
+            </Paper>
           </Grid>
 
           <Grid item sm={12} xs={12} md={3} lg={3}>
-            <div className={classes.noteHeader}>
-              <div style={{ display: "flex" }}>
-                <Print className={classes.iconBlue} />
-                <p className={classes.iconLabelBlue}>Print</p>
-              </div>
-              <div style={{ display: "flex" }}>
-                <Settings className={classes.iconBlue} />
-                <p className={classes.iconLabelBlue}>Setting</p>
-              </div>
-            </div>
-            <div className={classes.noteInnerSec}>
+            <Paper elevation={3} className={classes.noteInnerSec}>
               <div style={{ display: "flex" }}>
                 <p style={{ flex: 1 }}>Notes</p>
                 <p>
@@ -369,36 +367,29 @@ export default function Classroom(props) {
               >
                 <div className="_popOver" style={{ padding: "1%" }}>
                   <textarea
-                    rows="4"
-                    cols="30"
+                    rows={4}
+                    cols={30}
                     className="_desInput"
                     onChange={(e) => setNote(e.target.value)}
                     placeholder="Add Note..."
                     style={{ display: "block" }}
                   ></textarea>
-                  <button
-                    className={classes.addNoteBtn}
-                    onClick={() => addNotes()}
-                  >
-                    ADD
-                  </button>
+                  <Button className={classes.addNoteBtn}>ADD</Button>
                 </div>
               </Popover>
-              <p
-                className={classes.notePera}
-                style={{ fontSize: 14, color: "#727272" }}
-              >
+              <Typography className={classes.noteText}>
                 Click the "Save Note" button when you want to capture a screen.
                 You can also highlighted and save lines from the transcript
                 below. Add your own notes to anthing you've captured
-              </p>
+              </Typography>
               {notes.map((val, i) => {
                 return <div className="_noteDiv1">{val}</div>;
               })}
-            </div>
+            </Paper>
           </Grid>
         </Grid>
       </Container>
     </div>
   );
-}
+};
+export default Classroom;

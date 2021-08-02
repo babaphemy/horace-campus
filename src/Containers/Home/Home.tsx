@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Header, Navbar } from "../../Components";
 import { makeStyles } from "@material-ui/core/styles";
-import { Badge, Container, Grid, Link } from "@material-ui/core";
+import { Badge, Container, Grid, Paper } from "@material-ui/core";
 import {
   Close,
   ExpandMore,
@@ -9,6 +9,7 @@ import {
   MessageOutlined,
 } from "@material-ui/icons";
 
+import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -17,6 +18,7 @@ import Box from "@material-ui/core/Box";
 import h from "../../Assets/horace-header.jpeg";
 import { getFreeCourses } from "../../Api/CourseApi";
 import { tCourseLte } from "../../util/types";
+import CourseRating from "../../Components/course/Rating";
 
 const useStyles = makeStyles((theme) => ({
   home: {
@@ -72,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
   cardTitle: {
     fontSize: 20,
     fontWeight: 500,
+    textAlign: "center",
   },
   date: {
     color: "#adabab",
@@ -167,17 +170,7 @@ function Home() {
       if ("data" in res) setCourses(res?.data);
     });
   }, []);
-  // useEffect(() => {
-  //   fetch("https://extreme-ip-lookup.com/json/")
-  //     .then((res) => res.json())
-  //     .then((response) => {
-  //       console.log("Country: ", response.country, response);
-  //     })
-  //     //@ts-ignore
-  //     .catch((data, status) => {
-  //       console.log("Request failed", status, data);
-  //     });
-  // }, []);
+
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
@@ -217,7 +210,7 @@ function Home() {
                 <TabPanel value={value} index={0}>
                   <div className={classes.cardBox}>
                     {courses.map((cs) => (
-                      <div key={cs.id} className={classes.card}>
+                      <Paper key={cs.id} className={classes.card}>
                         <img
                           src={
                             cs.thumbnail ||
@@ -227,19 +220,36 @@ function Home() {
                           width="100%"
                         />
                         <div className={classes.cardBody}>
-                          <h2 className={classes.cardTitle}>{cs.courseName}</h2>
+                          <h2 className={classes.cardTitle}>
+                            <Link to={`/classroom/${cs.id}`}>
+                              {cs.courseName}
+                            </Link>
+                          </h2>
                           <p className={classes.date}>
-                            Last modified {cs.createdOn}
+                            Last modified{" "}
+                            {new Date(cs.createdOn).toLocaleDateString("en-gb")}
                           </p>
-                          <p>Author: {cs.author}</p>
+                          <Typography variant="body2">{cs.brief}</Typography>
+                          <Typography variant="body1">
+                            Author: {cs.author}
+                          </Typography>
                           <br />
-                          <Badge badgeContent={4} color="primary">
-                            <MessageOutlined />
-                          </Badge>
-                          <br />
-                          <br />
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <CourseRating read={true} value={4} />
+                            <div>
+                              <Badge badgeContent={4} color="primary">
+                                <MessageOutlined />
+                              </Badge>
+                            </div>
+                          </div>
                         </div>
-                      </div>
+                      </Paper>
                     ))}
                   </div>
                 </TabPanel>
@@ -257,7 +267,9 @@ function Home() {
                 </TabPanel>
 
                 <div>
-                  <Link href="">View All Courses ({courses.length})</Link>
+                  <Link to="/classroom">
+                    View All Courses ({courses.length})
+                  </Link>
                 </div>
               </div>
             </Grid>
@@ -316,7 +328,7 @@ function Home() {
                 </div>
 
                 <div>
-                  <Link href="">View All Trending (2)</Link>
+                  <Link to="">View All Trending (2)</Link>
                 </div>
               </div>
             </Grid>

@@ -59,7 +59,9 @@ function Header() {
             </div>
 
             <div className={clsx(classes.navItem)}>
-              <img src={Logo} alt="" width="200" />
+              <Link to="/">
+                <img src={Logo} alt="Horace Logo" width="200" />
+              </Link>
             </div>
           </div>
           <div className={classes.rightSide}>
