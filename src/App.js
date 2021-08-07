@@ -1,5 +1,7 @@
-import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import React from "react";
+import { ThemeProvider } from "@material-ui/core";
+import { createTheme } from "@material-ui/core/styles";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -20,7 +22,7 @@ import {
 import { UserProvider } from "./Context/UserProvider";
 import "./Assets/css/styles.css";
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     background: {
       default: "#FA534F",
@@ -45,6 +47,7 @@ const App = () => {
                 <Redirect to="/home"></Redirect>
               </Route>
               <Route exact path="/home" component={Home} />
+
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
               <Route path="/forgot" component={Forgot} />
